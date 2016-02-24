@@ -26,7 +26,7 @@ namespace Clustering {
         int getId() const{ return  __id;}
         int getDims() const{return __dim;}
         void setValue(int, double);
-        double getValue(int) const{return *__values;}
+        double getValue(int i) const{return *__values[i];}
 
         // Functions
         double distanceTo(const Point &) const;
