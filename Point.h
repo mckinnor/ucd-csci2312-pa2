@@ -6,9 +6,10 @@
 namespace Clustering {
 
     class Point {
+    private:
         unsigned int __id;
         int __dim;        // number of dimensions of the point
-        double *__values; // values of the point's dimensions
+        double *__values[]; // values of the point's dimensions
 
         static unsigned int __idGen; // id generator
 
@@ -22,10 +23,10 @@ namespace Clustering {
         ~Point();
 
         // Accessors & mutators
-        int getId() const;
-        int getDims() const;
+        int getId() const{ return  __id;}
+        int getDims() const{return __dim;}
         void setValue(int, double);
-        double getValue(int) const;
+        double getValue(int) const{return *__values;}
 
         // Functions
         double distanceTo(const Point &) const;
