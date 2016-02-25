@@ -58,6 +58,5 @@ namespace Clustering {
         friend std::ostream &operator<<(std::ostream &, const Point &);
         friend std::istream &operator>>(std::istream &, Point &);
     };
-
 }
 #endif //CLUSTERING_POINT_H
