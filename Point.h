@@ -58,5 +58,15 @@ namespace Clustering {
         friend std::ostream &operator<<(std::ostream &, const Point &);
         friend std::istream &operator>>(std::istream &, Point &);
     };
+    Point &operator+=(Point &point, const Point &point1);
+    Point &operator-=(Point &point, const Point &point1);
+    const Point operator+(const Point &point, const Point &point1);
+    const Point operator-(const Point &point, const Point &point1);
+    bool operator==(const Point &point, const Point &point1);
+    bool operator!=(const Point &point, const Point &point1);
+    bool operator<(const Point &point, const Point &point1);
+    bool operator>(const Point &point, const Point &point1);
+    bool operator<=(const Point &point, const Point &point1);
+    bool operator>=(const Point &point, const Point &point1);
 }
 #endif //CLUSTERING_POINT_H
