@@ -26,7 +26,7 @@ namespace Clustering {
 
 
     public:
-        Cluster();
+        Cluster(){};
 
         // The big three: cpy ctor, overloaded operator=, dtor
         Cluster(const Cluster &);

@@ -9,7 +9,7 @@ namespace Clustering {
     private:
         unsigned int __id;
         int __dim;        // number of dimensions of the point
-        double *__values[]; // values of the point's dimensions
+        double *__values; // values of the point's dimensions
 
         static unsigned int __idGen; // id generator
 
@@ -23,10 +23,10 @@ namespace Clustering {
         ~Point();
 
         // Accessors & mutators
-        int getId() const{ return  __id;}
+        int getId() const{return  __id;}
         int getDims() const{return __dim;}
         void setValue(int, double);
-        double getValue(int i) const{return *__values[i];}
+        double getValue(int i) const{return __values[i];}
 
         // Functions
         double distanceTo(const Point &) const;
@@ -39,7 +39,7 @@ namespace Clustering {
         const Point operator*(double) const; // prevent (p1 * 2) = p2;
         const Point operator/(double) const; // p3 = p2 / 2;
 
-        double &operator[](int index){return *__values[index];}
+        double &operator[](int index){return __values[index];}
 
         // Friends
         friend Point &operator+=(Point &, const Point &);
@@ -68,5 +68,7 @@ namespace Clustering {
     bool operator>(const Point &point, const Point &point1);
     bool operator<=(const Point &point, const Point &point1);
     bool operator>=(const Point &point, const Point &point1);
+    std::ostream &operator<<(std::ostream &ostream1, const Point &point);
+    std::istream &operator>>(std::istream &istream1, Point &point);
 }
 #endif //CLUSTERING_POINT_H
