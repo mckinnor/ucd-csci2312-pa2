@@ -78,32 +78,28 @@ double Clustering::Point::distanceTo(const Clustering::Point &point) const {
 }
 
 Clustering::Point &Clustering::Point::operator*=(double d) {
-    Point pointA(__dim);
     for(int i = 0; i < __dim; i++)
-        pointA.setValue(i, getValue(i)*d);
-
+        __values[i] = __values[i]* d;
     return *this;
 }
 
 
 Clustering::Point &Clustering::Point::operator/=(double d) {
-    Point pointA(__dim);
-
-    for(int i = 0; i < getDims(); i++)
-        pointA.setValue(i, (__values[i])/d);
-
+    for(int i = 0; i < __dim; i++)
+        __values[i] = __values[i] / d;
     return *this;
 }
 
 const Clustering::Point Clustering::Point::operator*(double d) const {
     Point newPoint(__dim);
+    newPoint.__values = __values;
     newPoint *= d;
     return newPoint;
 }
 
 const Clustering::Point Clustering::Point::operator/(double d) const {
     Point newPoint(__dim);
-    newPoint.__values[__dim] = __values[__dim];
+    newPoint.__values = __values;
     newPoint *= d;
     return  newPoint;
 }
@@ -129,14 +125,12 @@ Clustering::Point &Clustering::operator-=(Clustering::Point &point, const Cluste
 }
 
 const Clustering::Point Clustering::operator-(const Clustering::Point &point, const Clustering::Point &point1) {
-    Point newPoint(point.getDims());
-    newPoint -= point;
+    Point newPoint(point);
     newPoint -= point1;
     return newPoint;
 }
 
 bool Clustering::operator==(const Clustering::Point &point, const Clustering::Point &point1) {
-    if(point.getId() == point1.getId()){
         if(point.getDims() == point1.getDims()){
             bool runTruth = true;
             for(int i = 0; i < point.getDims(); i++){
@@ -145,8 +139,6 @@ bool Clustering::operator==(const Clustering::Point &point, const Clustering::Po
             return runTruth;
         }
         else return false;
-    }
-    else return false;
 }
 
 bool Clustering::operator!=(const Clustering::Point &point, const Clustering::Point &point1) {
@@ -185,15 +177,11 @@ std::ostream &Clustering::operator<<(ostream &ostream1, const Clustering::Point 
 }
 
 std::istream &Clustering::operator>>(istream &istream1, Clustering::Point &point) {
-    stringstream newInput;
-    double hold;
-    int count  = 0;
-    while(newInput) {
-        newInput >> hold;
-        count++;
-    }
-    Clustering::Point newPoint(count);
-    for(int i = 0; i < count; i++){
-
+    int i =0;
+    double temp;
+    while(istream1 >> temp){
+        point.__values[i] = temp;
+        if(istream1.peek() == ',') istream1.ignore();
+        i++;
     }
 }
