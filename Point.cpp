@@ -37,6 +37,7 @@ Clustering::Point::Point(const Clustering::Point &point) {
 //ASSIGNMENT OPERATOR
 Clustering::Point &Clustering::Point::operator=(const Clustering::Point &point) {
     __dim = point.__dim;
+    __id = point.__id;
     for (int i = 0; i < __dim; ++i) {
         __values[i] = point.__values[i];
     }
@@ -49,9 +50,9 @@ Clustering::Point::~Point() {
     __values = nullptr;
 }
 
-void Clustering::Point::setValue(int i, double d) {
+/*void Clustering::Point::setValue(int i, double d) {
     __values[i] = d;
-}
+}*/
 
 double Clustering::Point::distanceTo(const Clustering::Point &point) const {
     int dim1 = getDims();
@@ -79,7 +80,7 @@ double Clustering::Point::distanceTo(const Clustering::Point &point) const {
 
 Clustering::Point &Clustering::Point::operator*=(double d) {
     for(int i = 0; i < __dim; i++)
-        __values[i] = __values[i]* d;
+        __values[i] = __values[i] * d;
     return *this;
 }
 
@@ -131,41 +132,41 @@ const Clustering::Point Clustering::operator-(const Clustering::Point &point, co
 }
 
 bool Clustering::operator==(const Clustering::Point &point, const Clustering::Point &point1) {
-        if(point.getDims() == point1.getDims()){
-            bool runTruth = true;
-            for(int i = 0; i < point.getDims(); i++){
-                if(point.__values[i] != point1.__values[i]) runTruth = false;
-            }
-            return runTruth;
+    if(point.getId() == point1.getId()) {
+        if (point.getDims() == point1.getDims()) {
+            for (int i = 0; i < point.getDims(); i++)
+                if (point.__values[i] != point1.__values[i]) return false;
+            return true;
         }
         else return false;
+    }
+    else return false;
 }
 
 bool Clustering::operator!=(const Clustering::Point &point, const Clustering::Point &point1) {
-    if(point == point1) return false;
-    else return true;
+    return !(point == point1);
 }
 
 bool Clustering::operator<(const Clustering::Point &point, const Clustering::Point &point1) {
     for(int i = 0; i < point.getDims(); i++){
-        if(point.getValue(i) < point1.getValue(i)) return true;
+        if(point.getValue(i) != point1.getValue(i)){
+            if(point.getValue(i) < point1.getValue(i)) return true;
+            else return false;
+        }
     }
     return false;
 }
 
 bool Clustering::operator>(const Clustering::Point &point, const Clustering::Point &point1) {
-    if(point < point1) return false;
-    else return true;
+    return !(point < point1);
 }
 
 bool Clustering::operator<=(const Clustering::Point &point, const Clustering::Point &point1) {
-    if((point < point1)||(point == point1))return true;
-    else return false;
+    return ((point == point1)||(point < point1));
 }
 
 bool Clustering::operator>=(const Clustering::Point &point, const Clustering::Point &point1) {
-    if((point > point1)||(point == point1)) return true;
-    else return false;
+    return ((point > point1) || (point == point1));
 }
 
 std::ostream &Clustering::operator<<(ostream &ostream1, const Clustering::Point &point) {

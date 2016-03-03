@@ -26,7 +26,7 @@ namespace Clustering {
 
 
     public:
-        Cluster(){};
+        Cluster(){__size = 0; __points = nullptr;}
 
         // The big three: cpy ctor, overloaded operator=, dtor
         Cluster(const Cluster &);
@@ -34,10 +34,10 @@ namespace Clustering {
         ~Cluster();
 
         // Getters/setters
-        int getSize() const; // TODO add to the requirements
+        int getSize() const{return __size;}
 
         // Set functions: They allow calling c1.add(c2.remove(p));
-        void add(const Point &); // TODO add asc order to the requirements
+        void add(const Point &);
         const Point &remove(const Point &);
         bool contains(const Point &);
 
@@ -71,6 +71,5 @@ namespace Clustering {
         friend const Cluster operator-(const Cluster &, const Cluster &); // (asymmetric) difference
 
     };
-
 }
 #endif //CLUSTERING_CLUSTER_H

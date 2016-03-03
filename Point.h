@@ -23,9 +23,9 @@ namespace Clustering {
         ~Point();
 
         // Accessors & mutators
-        int getId() const{return  __id;}
+        int getId() const{return __id;}
         int getDims() const{return __dim;}
-        void setValue(int, double);
+        void setValue(int i, double d){__values[i] = d;}
         double getValue(int i) const{return __values[i];}
 
         // Functions
